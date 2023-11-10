@@ -1,5 +1,7 @@
 package christmas.domain.order;
 
+import static christmas.constants.ErrorMessage.INVALID_ORDER_ERROR_MESSAGE;
+
 import christmas.domain.Menu;
 
 public class MenuName {
@@ -12,7 +14,7 @@ public class MenuName {
 
     private void validateMenuName(String menuName) {
         if (!Menu.containsName(menuName)) {
-            throw new IllegalArgumentException("메뉴판에 없는 메뉴 이름입니다.");
+            throw new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE);
         }
     }
 }
