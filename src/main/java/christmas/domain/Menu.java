@@ -5,6 +5,8 @@ import static christmas.domain.MenuType.DESSERT;
 import static christmas.domain.MenuType.DRINK;
 import static christmas.domain.MenuType.MAIN;
 
+import java.util.Arrays;
+
 public enum Menu {
     BUTTON_MUSHROOM_SOUP(APPETIZER, "양송이수프", 6000),
     TAPAS(APPETIZER, "타파스", 5500),
@@ -30,6 +32,11 @@ public enum Menu {
         this.menuType = menuType;
         this.name = name;
         this.price = price;
+    }
+
+    public static boolean containsName(String name) {
+        return Arrays.stream(values())
+                .anyMatch(menu -> menu.getName().equals(name));
     }
 
     public MenuType getMenuType() {
