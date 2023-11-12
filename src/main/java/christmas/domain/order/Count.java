@@ -10,6 +10,10 @@ public class Count {
         this.count = count;
     }
 
+    public int getCount() {
+        return count;
+    }
+
     private void validateCount(int count) {
         if (count < 1) {
             throw new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE);
