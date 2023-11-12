@@ -19,4 +19,8 @@ public class OrderMenu {
     public int getPrice() {
         return menu.getPrice() * count.getCount();
     }
+
+    public int getCount() {
+        return count.getCount();
+    }
 }
