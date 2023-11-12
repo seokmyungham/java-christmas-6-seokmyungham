@@ -16,7 +16,7 @@ public class OrderMenu {
         return menu.getMenuType();
     }
 
-    public int getOrderMenuPrice() {
+    public int getPrice() {
         return menu.getPrice() * count.getCount();
     }
 }
