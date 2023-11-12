@@ -12,6 +12,10 @@ public class MenuName {
         this.menuName = menuName;
     }
 
+    public String getMenuName() {
+        return menuName;
+    }
+
     private void validateMenuName(String menuName) {
         if (!Menu.containsName(menuName)) {
             throw new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE);
