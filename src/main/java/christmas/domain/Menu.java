@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import static christmas.constants.ErrorMessage.INVALID_ORDER_ERROR_MESSAGE;
 import static christmas.domain.MenuType.APPETIZER;
 import static christmas.domain.MenuType.DESSERT;
 import static christmas.domain.MenuType.DRINK;
@@ -37,6 +38,14 @@ public enum Menu {
     public static boolean containsName(String name) {
         return Arrays.stream(values())
                 .anyMatch(menu -> menu.getName().equals(name));
+    }
+
+    public static int getPriceByName(String name) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.getName().equals(name))
+                .findFirst()
+                .map(Menu::getPrice)
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE));
     }
 
     public MenuType getMenuType() {
