@@ -9,7 +9,7 @@ public class Order {
         this.totalOrder = orders;
     }
 
-    public int getOrderTotalPrice() {
+    public int getPrice() {
         return totalOrder.stream()
                 .mapToInt(OrderMenu::getPrice)
                 .sum();
