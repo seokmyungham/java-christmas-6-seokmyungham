@@ -1,30 +1,34 @@
 package christmas.domain.order;
 
-import christmas.domain.Menu;
+import christmas.domain.MenuType;
 import java.util.List;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Test;
 
 class OrderTest {
+    private Order totalOrder;
+
+    @BeforeEach
+    void setUp() {
+        totalOrder = new Order(List.of(
+                new OrderMenu(new MenuName("타파스"), new Count(1)),
+                new OrderMenu(new MenuName("시저샐러드"), new Count(1)),
+                new OrderMenu(new MenuName("크리스마스파스타"), new Count(2)),
+                new OrderMenu(new MenuName("초코케이크"), new Count(1)),
+                new OrderMenu(new MenuName("레드와인"), new Count(1))));
+    }
 
     @DisplayName("총 주문 금액을 반환한다.")
-    @ParameterizedTest
-    @CsvSource({
-            "타파스, 1",
-            "시저샐러드, 1",
-            "크리스마스파스타, 2",
-            "초코케이크, 1",
-            "레드와인, 2"
-    })
-    void getPriceTest(String menuName, int count) {
-        Order totalOrder = new Order(List.of(new OrderMenu(new MenuName(menuName), new Count(count))));
-        int expectedPrice = 0;
-        expectedPrice += Menu.getMenuByName(menuName).getPrice() * count;
+    @Test
+    void getPriceTest() {
+        Assertions.assertThat(totalOrder.getPrice()).isEqualTo(138500);
+    }
 
-        int orderTotalPrice = totalOrder.getPrice();
-
-        Assertions.assertThat(orderTotalPrice).isEqualTo(expectedPrice);
+    @DisplayName("총 주문 내역에서 특정 메뉴 타입 주문 수를 반환한다.")
+    @Test
+    void countMenuTypeTest() {
+        Assertions.assertThat(totalOrder.countMenuType(MenuType.MAIN)).isEqualTo(2);
     }
 }
