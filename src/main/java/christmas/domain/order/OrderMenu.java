@@ -4,23 +4,19 @@ import christmas.domain.Menu;
 import christmas.domain.MenuType;
 
 public class OrderMenu {
-    private final MenuName menuName;
+    private final Menu menu;
     private final Count count;
 
     public OrderMenu(MenuName menuName, Count count) {
-        this.menuName = menuName;
+        this.menu = Menu.getMenuByName(menuName.getMenuName());
         this.count = count;
     }
 
     public MenuType getOrderMenuType() {
-        Menu menu = Menu.getMenuByName(menuName.getMenuName());
         return menu.getMenuType();
     }
 
     public int getOrderMenuPrice() {
-        int price = Menu.getPriceByName(menuName.getMenuName());
-        int count = this.count.getCount();
-
-        return price * count;
+        return menu.getPrice() * count.getCount();
     }
 }
