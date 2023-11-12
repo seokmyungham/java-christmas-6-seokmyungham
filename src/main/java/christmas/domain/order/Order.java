@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.domain.MenuType;
 import java.util.List;
 
 public class Order {
@@ -14,4 +15,12 @@ public class Order {
                 .mapToInt(OrderMenu::getPrice)
                 .sum();
     }
+
+    public int countMenuType(MenuType menuType) {
+        return totalOrder.stream()
+                .filter(orderMenu -> orderMenu.getOrderMenuType().equals(menuType))
+                .mapToInt(OrderMenu::getCount)
+                .sum();
+    }
+
 }
