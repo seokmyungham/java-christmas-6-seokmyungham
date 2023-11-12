@@ -47,14 +47,6 @@ public enum Menu {
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE));
     }
 
-    public static int getPriceByName(String name) {
-        return Arrays.stream(values())
-                .filter(menu -> menu.getName().equals(name))
-                .findFirst()
-                .map(Menu::getPrice)
-                .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE));
-    }
-
     public MenuType getMenuType() {
         return menuType;
     }
