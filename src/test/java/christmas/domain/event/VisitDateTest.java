@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -37,5 +38,18 @@ class VisitDateTest {
     })
     void daysElapsedTest(int visitDate, int startDate) {
         assertThat(new VisitDate(visitDate).daysElapsed()).isEqualTo(startDate);
+    }
+
+    @DisplayName("이벤트 기한 전에 방문할 경우 참을 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 25})
+    void isVisitInRangeTrueTest(int visitDate) {
+        assertThat(new VisitDate(visitDate).isVisitInRange(25)).isTrue();
+    }
+
+    @DisplayName("이벤트 기한 후에 방문할 경우 거짓을 반환한다.")
+    @Test
+    void isVisitInRangeFalseTest() {
+        assertThat(new VisitDate(26).isVisitInRange(25)).isFalse();
     }
 }
