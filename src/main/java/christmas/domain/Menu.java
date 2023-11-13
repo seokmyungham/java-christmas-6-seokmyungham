@@ -37,22 +37,18 @@ public enum Menu {
 
     public static boolean containsName(String name) {
         return Arrays.stream(values())
-                .anyMatch(menu -> menu.getName().equals(name));
+                .anyMatch(menu -> menu.name.equals(name));
     }
 
     public static Menu getMenuByName(String name) {
         return Arrays.stream(values())
-                .filter(menu -> menu.getName().equals(name))
+                .filter(menu -> menu.name.equals(name))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE));
     }
 
-    public MenuType getMenuType() {
-        return menuType;
-    }
-
-    public String getName() {
-        return name;
+    public boolean equalsMenuType(MenuType otherMenuType) {
+        return menuType.equals(otherMenuType);
     }
 
     public int getPrice() {
