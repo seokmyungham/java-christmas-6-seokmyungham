@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,5 +59,12 @@ class VisitDateTest {
     @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
     void isWeekendTest(int weekend) {
         assertThat(new VisitDate(weekend).isWeekend()).isTrue();
+    }
+
+    @DisplayName("방문 날짜가 주중인지 판단한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 6, 25, 31})
+    void isWeekdayTest(int weekday) {
+        Assertions.assertThat(new VisitDate(weekday).isWeekday()).isTrue();
     }
 }
