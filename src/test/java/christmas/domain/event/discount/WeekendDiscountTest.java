@@ -28,7 +28,7 @@ class WeekendDiscountTest {
     void applyDiscountTest() {
         WeekendDiscount weekendDiscount = new WeekendDiscount();
 
-        int discountPrice = weekendDiscount.applyDiscount(totalOrder);
+        int discountPrice = weekendDiscount.apply(totalOrder);
 
         assertThat(discountPrice).isEqualTo(4046);
     }

@@ -28,7 +28,7 @@ class WeekdayDiscountTest {
     void applyDiscountTest() {
         WeekdayDiscount weekdayDiscount = new WeekdayDiscount();
 
-        int discountPrice = weekdayDiscount.applyDiscount(totalOrder);
+        int discountPrice = weekdayDiscount.apply(totalOrder);
 
         assertThat(discountPrice).isEqualTo(2023);
     }
