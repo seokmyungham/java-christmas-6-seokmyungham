@@ -8,11 +8,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class OrderTest {
-    private Order totalOrder;
+    private Order orders;
 
     @BeforeEach
     void setUp() {
-        totalOrder = new Order(List.of(
+        orders = new Order(List.of(
                 new OrderMenu(new MenuName("타파스"), new Count(1)),
                 new OrderMenu(new MenuName("시저샐러드"), new Count(1)),
                 new OrderMenu(new MenuName("크리스마스파스타"), new Count(2)),
@@ -23,12 +23,12 @@ class OrderTest {
     @DisplayName("총 주문 금액을 반환한다.")
     @Test
     void getPriceTest() {
-        Assertions.assertThat(totalOrder.getPrice()).isEqualTo(138500);
+        Assertions.assertThat(orders.totalPrice()).isEqualTo(138500);
     }
 
     @DisplayName("총 주문 내역에서 특정 메뉴 타입 주문 수를 반환한다.")
     @Test
     void countMenuTypeTest() {
-        Assertions.assertThat(totalOrder.countMenuType(MenuType.MAIN)).isEqualTo(2);
+        Assertions.assertThat(orders.countMenuType(MenuType.MAIN)).isEqualTo(2);
     }
 }
