@@ -31,6 +31,10 @@ public class VisitDate {
         return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
     }
 
+    public boolean isWeekday() {
+        return !isWeekend();
+    }
+
     private void validateVisitDate(int visitDate) {
         if (visitDate < 1 || visitDate > 31) {
             throw new IllegalArgumentException(INVALID_DATE_ERROR_MESSAGE);
