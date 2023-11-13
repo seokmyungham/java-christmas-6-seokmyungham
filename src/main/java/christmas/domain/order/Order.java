@@ -18,9 +18,7 @@ public class Order {
 
     public int countMenuType(MenuType menuType) {
         return orders.stream()
-                .filter(orderMenu -> orderMenu.getOrderMenuType().equals(menuType))
-                .mapToInt(OrderMenu::getCount)
+                .mapToInt(orderMenu -> orderMenu.matchMenuTypeCount(menuType))
                 .sum();
     }
-
 }
