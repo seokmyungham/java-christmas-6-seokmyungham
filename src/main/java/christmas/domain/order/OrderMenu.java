@@ -12,15 +12,15 @@ public class OrderMenu {
         this.count = count;
     }
 
-    public MenuType getOrderMenuType() {
-        return menu.getMenuType();
+    public int matchMenuTypeCount(MenuType menuType) {
+        if (menu.equalsMenuType(menuType)) {
+            return count.getCount();
+        }
+
+        return 0;
     }
 
     public int getPrice() {
         return menu.getPrice() * count.getCount();
-    }
-
-    public int getCount() {
-        return count.getCount();
     }
 }
