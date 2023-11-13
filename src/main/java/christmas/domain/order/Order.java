@@ -4,20 +4,20 @@ import christmas.domain.MenuType;
 import java.util.List;
 
 public class Order {
-    private final List<OrderMenu> totalOrder;
+    private final List<OrderMenu> orders;
 
     public Order(List<OrderMenu> orders) {
-        this.totalOrder = orders;
+        this.orders = orders;
     }
 
-    public int getPrice() {
-        return totalOrder.stream()
+    public int totalPrice() {
+        return orders.stream()
                 .mapToInt(OrderMenu::getPrice)
                 .sum();
     }
 
     public int countMenuType(MenuType menuType) {
-        return totalOrder.stream()
+        return orders.stream()
                 .filter(orderMenu -> orderMenu.getOrderMenuType().equals(menuType))
                 .mapToInt(OrderMenu::getCount)
                 .sum();
