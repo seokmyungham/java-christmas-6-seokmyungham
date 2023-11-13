@@ -5,7 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.assertj.core.api.Assertions;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -65,6 +66,24 @@ class VisitDateTest {
     @ParameterizedTest
     @ValueSource(ints = {3, 6, 25, 31})
     void isWeekdayTest(int weekday) {
-        Assertions.assertThat(new VisitDate(weekday).isWeekday(2023, 12)).isTrue();
+        assertThat(new VisitDate(weekday).isWeekday(2023, 12)).isTrue();
+    }
+
+    @DisplayName("이벤트를 진행하는 날에 방문하면 참을 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 25})
+    void isVisitInEventDayTrueTest(int visitDate) {
+        List<Integer> starDay = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
+
+        assertThat(new VisitDate(visitDate).isVisitInEventDay(starDay)).isTrue();
+    }
+
+    @DisplayName("이벤트를 진행하는 날에 방문한게 아니면 거짓을 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {4, 30})
+    void isVisitInEventDayFalseTest(int visitDate) {
+        List<Integer> starDay = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
+
+        assertThat(new VisitDate(visitDate).isVisitInEventDay(starDay)).isFalse();
     }
 }
