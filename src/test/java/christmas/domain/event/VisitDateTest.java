@@ -52,4 +52,11 @@ class VisitDateTest {
     void isVisitInRangeFalseTest() {
         assertThat(new VisitDate(26).isVisitInRange(25)).isFalse();
     }
+
+    @DisplayName("방문 날짜가 주말(금,토요일)인지 판단한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
+    void isWeekendTest(int weekend) {
+        assertThat(new VisitDate(weekend).isWeekend()).isTrue();
+    }
 }
