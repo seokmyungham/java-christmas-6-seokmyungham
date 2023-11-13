@@ -1,15 +1,10 @@
 package christmas.service;
 
-import static christmas.domain.event.EventType.CHRISTMAS_D_DAY_DISCOUNT;
-import static christmas.domain.event.EventType.GIFT_EVENT;
-import static christmas.domain.event.EventType.STAR_DAY_DISCOUNT;
-import static christmas.domain.event.EventType.WEEKDAY_DISCOUNT;
-import static christmas.domain.event.EventType.WEEKEND_DISCOUNT;
-
+import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
 import christmas.domain.event.GiftEvent;
 import christmas.domain.event.VisitDate;
-import christmas.domain.event.discount.DdayDiscount;
+import christmas.domain.event.discount.DDayDiscount;
 import christmas.domain.event.discount.StarDayDiscount;
 import christmas.domain.event.discount.WeekdayDiscount;
 import christmas.domain.event.discount.WeekendDiscount;
@@ -20,53 +15,24 @@ import java.util.List;
 import java.util.Map;
 
 public class EventService {
-    private static final int CHRISTMAS_D_DAY = 25;
-    private static final int YEAR = 2023, MONTH = 12;
-    private static final List<Integer> STAR_DAY = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
+    private final List<Event> events;
 
-    public Map<EventType, Integer> manageBenefits(Order order, VisitDate visitDate) {
+    public EventService() {
+        this.events = new ArrayList<>();
+        events.add(new DDayDiscount());
+        events.add(new WeekendDiscount());
+        events.add(new WeekdayDiscount());
+        events.add(new StarDayDiscount());
+        events.add(new GiftEvent());
+    }
+
+    public Map<EventType, Integer> manageEvents(Order order, VisitDate visitDate) {
         Map<EventType, Integer> eventBenefits = new HashMap<>();
-        eventBenefits.put(CHRISTMAS_D_DAY_DISCOUNT, dDayApply(visitDate));
-        eventBenefits.put(WEEKEND_DISCOUNT, weekendApply(order, visitDate));
-        eventBenefits.put(WEEKDAY_DISCOUNT, weekdayApply(order, visitDate));
-        eventBenefits.put(STAR_DAY_DISCOUNT, starDayApply(visitDate));
-        eventBenefits.put(GIFT_EVENT, giftApply(order));
+
+        for (Event event : events) {
+            eventBenefits.put(event.getType(), event.apply(order, visitDate));
+        }
 
         return eventBenefits;
-    }
-
-    private int dDayApply(VisitDate visitDate) {
-        if (visitDate.isVisitInRange(CHRISTMAS_D_DAY)) {
-            return new DdayDiscount().apply(visitDate);
-        }
-        return 0;
-    }
-
-    private int weekendApply(Order order, VisitDate visitDate) {
-        if (visitDate.isWeekend(YEAR, MONTH)) {
-            return new WeekendDiscount().apply(order);
-        }
-        return 0;
-    }
-
-    private int weekdayApply(Order order, VisitDate visitDate) {
-        if (visitDate.isWeekday(YEAR, MONTH)) {
-            return new WeekdayDiscount().apply(order);
-        }
-        return 0;
-    }
-
-    private int starDayApply(VisitDate visitDate) {
-        if (visitDate.isVisitInEventDay(STAR_DAY)) {
-            return new StarDayDiscount().apply();
-        }
-        return 0;
-    }
-
-    private int giftApply(Order order) {
-        if (order.totalPrice() >= 120000) {
-            return new GiftEvent().apply();
-        }
-        return 0;
     }
 }
