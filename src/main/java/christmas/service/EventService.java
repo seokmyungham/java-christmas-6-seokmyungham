@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EventService {
+    private static final int EVENT_REQUIREMENT = 10000;
     private final List<Event> events;
 
     public EventService() {
@@ -34,5 +35,9 @@ public class EventService {
         }
 
         return eventBenefits;
+    }
+
+    public boolean meetRequirements(Order order) {
+        return order.totalPrice() >= EVENT_REQUIREMENT;
     }
 }
