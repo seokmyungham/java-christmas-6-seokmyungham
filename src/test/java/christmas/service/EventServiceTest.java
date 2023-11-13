@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class EventServiceTest {
@@ -43,5 +44,23 @@ class EventServiceTest {
         Map<EventType, Integer> eventBenefits = eventService.manageEvents(orders, new VisitDate(23));
 
         assertThat(eventBenefits).isEqualTo(expectedBenefits);
+    }
+
+    @DisplayName("총 주문 가격이 이벤트 적용 조건(10000원 이상)을 만족하고 참을 반환한다.")
+    @Test
+    void meetRequirementsTrueTest() {
+        Order orders = new Order(List.of(new OrderMenu(new MenuName("티본스테이크"), new Count(1))));
+
+        EventService eventService = new EventService();
+        assertThat(eventService.meetRequirements(orders)).isTrue();
+    }
+
+    @DisplayName("총 주문 가격이 이벤트 적용 조건(10000원 이상)을 만족하지 못하고 거짓을 반환한다.")
+    @Test
+    void meetRequirementsFalseTest() {
+        Order orders = new Order(List.of(new OrderMenu(new MenuName("양송이수프"), new Count(1))));
+
+        EventService eventService = new EventService();
+        assertThat(eventService.meetRequirements(orders)).isFalse();
     }
 }
