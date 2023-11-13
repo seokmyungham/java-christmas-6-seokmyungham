@@ -20,7 +20,7 @@ class OrderMenuTest {
         OrderMenu orderMenu = new OrderMenu(new MenuName(menuName), new Count(count));
         int expectedPrice = Menu.getMenuByName(menuName).getPrice() * count;
 
-        int orderMenuPrice = orderMenu.getPrice();
+        int orderMenuPrice = orderMenu.calculatePrice();
 
         assertThat(orderMenuPrice).isEqualTo(expectedPrice);
     }
