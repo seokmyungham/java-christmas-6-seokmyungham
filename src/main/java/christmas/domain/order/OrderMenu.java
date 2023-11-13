@@ -20,7 +20,7 @@ public class OrderMenu {
         return 0;
     }
 
-    public int getPrice() {
+    public int calculatePrice() {
         return menu.getPrice() * count.getCount();
     }
 }
