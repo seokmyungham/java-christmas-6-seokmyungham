@@ -14,7 +14,7 @@ public class WeekendDiscount implements Event {
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
-        if (visitDate.isWeekday(YEAR, MONTH)) {
+        if (visitDate.isWeekend(YEAR, MONTH)) {
             return order.countMenuType(MenuType.MAIN) * discountPrice;
         }
         return 0;
