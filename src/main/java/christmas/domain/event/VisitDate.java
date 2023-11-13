@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public class VisitDate {
     private static final int START_DATE = 1;
-    private static final int YEAR = 2023, MONTH = 12;
 
     private final int visitDate;
 
@@ -24,15 +23,15 @@ public class VisitDate {
         return visitDate <= date;
     }
 
-    public boolean isWeekend() {
-        LocalDate localDate = LocalDate.of(YEAR, MONTH, visitDate);
+    public boolean isWeekend(int year, int month) {
+        LocalDate localDate = LocalDate.of(year, month, visitDate);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
 
         return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
     }
 
-    public boolean isWeekday() {
-        return !isWeekend();
+    public boolean isWeekday(int year, int month) {
+        return !isWeekend(year, month);
     }
 
     private void validateVisitDate(int visitDate) {
