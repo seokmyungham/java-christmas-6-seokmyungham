@@ -7,7 +7,7 @@ public class WeekendDiscount implements Discount {
     private static final int discountPrice = 2023;
 
     @Override
-    public int applyDiscount(Order order) {
+    public int apply(Order order) {
         return order.countMenuType(MenuType.MAIN) * discountPrice;
     }
 }
