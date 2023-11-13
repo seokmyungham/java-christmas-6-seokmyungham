@@ -2,6 +2,9 @@ package christmas.domain.event;
 
 import static christmas.constants.ErrorMessage.INVALID_DATE_ERROR_MESSAGE;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 public class VisitDate {
     private static final int START_DATE = 1;
     private static final int YEAR = 2023, MONTH = 12;
@@ -19,6 +22,13 @@ public class VisitDate {
 
     public boolean isVisitInRange(int date) {
         return visitDate <= date;
+    }
+
+    public boolean isWeekend() {
+        LocalDate localDate = LocalDate.of(YEAR, MONTH, visitDate);
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+
+        return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
     }
 
     private void validateVisitDate(int visitDate) {
