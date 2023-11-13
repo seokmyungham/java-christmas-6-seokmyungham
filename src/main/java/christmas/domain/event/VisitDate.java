@@ -4,6 +4,7 @@ import static christmas.constants.ErrorMessage.INVALID_DATE_ERROR_MESSAGE;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 
 public class VisitDate {
     private static final int START_DATE = 1;
@@ -32,6 +33,10 @@ public class VisitDate {
 
     public boolean isWeekday(int year, int month) {
         return !isWeekend(year, month);
+    }
+
+    public boolean isVisitInEventDay(List<Integer> eventDay) {
+        return eventDay.contains(visitDate);
     }
 
     private void validateVisitDate(int visitDate) {
