@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.domain.Menu;
+import christmas.domain.event.EventType;
 import christmas.domain.event.VisitDate;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderMenu;
@@ -28,11 +29,31 @@ public class OutputView {
 
     public void printGiftMenus(Map<Menu, Integer> gifts) {
         System.out.printf("%n<증정 메뉴>%n");
+        printNoGift(gifts);
+        for (Menu gift : gifts.keySet()) {
+            System.out.printf("%s %d개%n", gift.getName(), gifts.get(gift));
+        }
+    }
+
+    private void printNoGift(Map<Menu, Integer> gifts) {
         if (gifts.isEmpty()) {
             System.out.printf("없음%n");
         }
-        for (Menu gift : gifts.keySet()) {
-            System.out.printf("%s %d개%n", gift.getName(), gifts.get(gift));
+    }
+
+    public void printBenefitsDetails(Map<EventType, Integer> eventBenefits, int totalBenefits) {
+        System.out.printf("%n<헤택 내역>%n");
+        printNoBenefits(totalBenefits);
+        for (EventType eventType : eventBenefits.keySet()) {
+            if (eventBenefits.get(eventType) != 0) {
+                System.out.printf("%s: -%,d원%n", eventType.getName(), eventBenefits.get(eventType));
+            }
+        }
+    }
+
+    private void printNoBenefits(int totalBenefits) {
+        if (totalBenefits == 0) {
+            System.out.printf("없음%n");
         }
     }
 }
