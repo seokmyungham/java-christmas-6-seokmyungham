@@ -33,7 +33,7 @@ public class GiftEvent implements Event {
     }
 
 
-    public Map<Menu, Integer> getGift(Order order) {
+    public Map<Menu, Integer> getGiftInfo(Order order) {
         Map<Menu, Integer> giftInfo = new HashMap<>();
         if (meetRequirements(order)) {
             giftInfo.put(GIFT, count);
