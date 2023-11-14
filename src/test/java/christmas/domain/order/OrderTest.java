@@ -55,11 +55,21 @@ class OrderTest {
                 .hasMessage(INVALID_ORDER_ERROR_MESSAGE);
     }
 
-    @DisplayName("주문 메뉴의 개수 총 합이 20개 이하면 에러를 발생한다.")
+    @DisplayName("주문 메뉴의 개수 총 합이 20개 이하면 정상 생성된다.")
     @Test
     void orderMenuCountNoExceptionTest() {
         assertThatNoException()
                 .isThrownBy(() -> new Order(List.of(
                         new OrderMenu(new MenuName("타파스"), new Count(20)))));
+    }
+
+    @DisplayName("음료만 주문할 경우 예외를 발생한다.")
+    @Test
+    void orderOnlyDrinkExceptionTest() {
+        assertThatThrownBy(() -> new Order(List.of(
+                new OrderMenu(new MenuName("제로콜라"), new Count(2)),
+                new OrderMenu(new MenuName("레드와인"), new Count(1)))))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_ORDER_ERROR_MESSAGE);
     }
 }
