@@ -58,7 +58,7 @@ public class OutputView {
     }
 
     public void printTotalBenefits(int totalBenefits) {
-        System.out.printf("%n<총혜택 금액>%n%,d원%n", totalBenefits);
+        System.out.printf("%n<총혜택 금액>%n%,d원%n", -totalBenefits);
     }
 
     public void printPriceAfterDiscount(int finalPrice) {
