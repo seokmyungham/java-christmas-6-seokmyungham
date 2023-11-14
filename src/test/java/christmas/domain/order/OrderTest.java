@@ -1,8 +1,11 @@
 package christmas.domain.order;
 
+import static christmas.constants.ErrorMessage.INVALID_ORDER_ERROR_MESSAGE;
+import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import christmas.domain.MenuType;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,12 +26,22 @@ class OrderTest {
     @DisplayName("총 주문 금액을 반환한다.")
     @Test
     void getPriceTest() {
-        Assertions.assertThat(orders.totalPrice()).isEqualTo(138500);
+        assertThat(orders.totalPrice()).isEqualTo(138500);
     }
 
     @DisplayName("총 주문 내역에서 특정 메뉴 타입 주문 수를 반환한다.")
     @Test
     void countMenuTypeTest() {
-        Assertions.assertThat(orders.countMenuType(MenuType.MAIN)).isEqualTo(2);
+        assertThat(orders.countMenuType(MenuType.MAIN)).isEqualTo(2);
+    }
+
+    @DisplayName("총 주문 내역에 중복된 메뉴 주문이 있으면 에러를 발생한다.")
+    @Test
+    void duplicatedOrderMenuExceptionTest() {
+        assertThatThrownBy(() -> new Order(List.of(
+                        new OrderMenu(new MenuName("타파스"), new Count(1)),
+                        new OrderMenu(new MenuName("타파스"), new Count(2))))
+                ).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_ORDER_ERROR_MESSAGE);
     }
 }
