@@ -1,7 +1,8 @@
 package christmas.domain.order;
 
 import static christmas.constants.ErrorMessage.INVALID_ORDER_ERROR_MESSAGE;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.domain.MenuType;
@@ -39,9 +40,26 @@ class OrderTest {
     @Test
     void duplicatedOrderMenuExceptionTest() {
         assertThatThrownBy(() -> new Order(List.of(
-                        new OrderMenu(new MenuName("타파스"), new Count(1)),
-                        new OrderMenu(new MenuName("타파스"), new Count(2))))
-                ).isInstanceOf(IllegalArgumentException.class)
+                new OrderMenu(new MenuName("타파스"), new Count(1)),
+                new OrderMenu(new MenuName("타파스"), new Count(2)))))
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_ORDER_ERROR_MESSAGE);
+    }
+
+    @DisplayName("주문 메뉴의 개수 총 합이 20개를 넘으면 에러를 발생한다.")
+    @Test
+    void orderMenuCountExceptionTest() {
+        assertThatThrownBy(() -> new Order(List.of(
+                new OrderMenu(new MenuName("타파스"), new Count(21)))))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(INVALID_ORDER_ERROR_MESSAGE);
+    }
+
+    @DisplayName("주문 메뉴의 개수 총 합이 20개 이하면 에러를 발생한다.")
+    @Test
+    void orderMenuCountNoExceptionTest() {
+        assertThatNoException()
+                .isThrownBy(() -> new Order(List.of(
+                        new OrderMenu(new MenuName("타파스"), new Count(20)))));
     }
 }
