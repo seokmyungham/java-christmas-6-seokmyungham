@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.Set;
 
 public class Order {
+    private static final int MAXIMUM_ORDER_COUNT = 20;
+
     private final List<OrderMenu> orders;
 
     public Order(List<OrderMenu> orders) {
         validateDuplicateOrderMenu(orders);
+        validateOrderMenuCount(orders);
         this.orders = Collections.unmodifiableList(orders);
     }
 
@@ -38,5 +41,17 @@ public class Order {
         if (orders.size() != dedupe.size()) {
             throw new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE);
         }
+    }
+
+    private void validateOrderMenuCount(List<OrderMenu> orders) {
+        if (calculateTotalCount(orders) > MAXIMUM_ORDER_COUNT) {
+            throw new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE);
+        }
+    }
+
+    private int calculateTotalCount(List<OrderMenu> orders) {
+        return orders.stream()
+                .mapToInt(OrderMenu::getCount)
+                .sum();
     }
 }
