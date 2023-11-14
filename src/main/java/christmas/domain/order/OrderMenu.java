@@ -25,6 +25,14 @@ public class OrderMenu {
         return menu.getPrice() * count.getCount();
     }
 
+    public String getMenu() {
+        return menu.getName();
+    }
+
+    public int getCount() {
+        return count.getCount();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -36,7 +44,6 @@ public class OrderMenu {
         OrderMenu orderMenu = (OrderMenu) obj;
         return Objects.equals(menu, orderMenu.menu);
     }
-
 
     @Override
     public int hashCode() {
