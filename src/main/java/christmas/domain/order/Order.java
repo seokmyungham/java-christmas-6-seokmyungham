@@ -3,6 +3,7 @@ package christmas.domain.order;
 import static christmas.constants.ErrorMessage.INVALID_ORDER_ERROR_MESSAGE;
 
 import christmas.domain.MenuType;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,7 @@ public class Order {
 
     public Order(List<OrderMenu> orders) {
         validateDuplicateOrderMenu(orders);
-        this.orders = orders;
+        this.orders = Collections.unmodifiableList(orders);
     }
 
     public int totalPrice() {
@@ -25,6 +26,10 @@ public class Order {
         return orders.stream()
                 .mapToInt(orderMenu -> orderMenu.matchMenuTypeCount(menuType))
                 .sum();
+    }
+
+    public List<OrderMenu> getOrders() {
+        return orders;
     }
 
     private void validateDuplicateOrderMenu(List<OrderMenu> orders) {
