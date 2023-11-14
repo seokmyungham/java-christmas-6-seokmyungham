@@ -11,13 +11,19 @@ import christmas.domain.order.Order;
 public class WeekdayDiscount implements Event {
     private static final int YEAR = 2023, MONTH = 12;
     private static final int discountPrice = 2023;
+    private static final int EVENT_REQUIREMENT = 10000;
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
-        if (visitDate.isWeekday(YEAR, MONTH)) {
+        if (meetRequirements(order) && visitDate.isWeekday(YEAR, MONTH)) {
             return order.countMenuType(MenuType.DESSERT) * discountPrice;
         }
         return 0;
+    }
+
+    @Override
+    public boolean meetRequirements(Order order) {
+        return order.totalPrice() >= EVENT_REQUIREMENT;
     }
 
     @Override
