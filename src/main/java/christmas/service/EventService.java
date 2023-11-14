@@ -4,6 +4,7 @@ import static christmas.domain.event.EventType.GIFT_EVENT;
 
 import christmas.domain.Menu;
 import christmas.domain.VisitDate;
+import christmas.domain.event.Badge;
 import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
 import christmas.domain.event.GiftEvent;
@@ -55,5 +56,9 @@ public class EventService {
                 .filter(entry -> entry.getKey() != GIFT_EVENT)
                 .mapToInt(Entry::getValue)
                 .sum();
+    }
+
+    public Badge giveBadge(int totalBenefits) {
+        return Badge.getBadge(totalBenefits);
     }
 }
