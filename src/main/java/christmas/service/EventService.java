@@ -47,7 +47,7 @@ public class EventService {
     }
 
     public Map<Menu, Integer> giftEvents(Order order) {
-        return new GiftEvent().getGift(order);
+        return new GiftEvent().getGiftInfo(order);
     }
 
     public int calculateFinalPrice(Order order, Map<EventType, Integer> eventBenefits) {
