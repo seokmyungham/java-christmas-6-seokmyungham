@@ -38,6 +38,12 @@ public class EventService {
         return eventBenefits;
     }
 
+    public int sumEventBenefits(Map<EventType, Integer> eventBenefits) {
+        return eventBenefits.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
     public boolean meetRequirements(Order order) {
         return order.totalPrice() >= EVENT_REQUIREMENT;
     }
