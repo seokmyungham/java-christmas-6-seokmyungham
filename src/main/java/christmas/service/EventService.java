@@ -41,7 +41,7 @@ public class EventService {
     }
 
     public int sumEventBenefits(Map<EventType, Integer> eventBenefits) {
-        return -eventBenefits.values().stream()
+        return eventBenefits.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
