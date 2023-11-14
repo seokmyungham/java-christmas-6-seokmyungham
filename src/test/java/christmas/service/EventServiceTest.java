@@ -1,12 +1,14 @@
 package christmas.service;
 
-import static christmas.domain.event.EventType.*;
 import static christmas.domain.event.EventType.CHRISTMAS_D_DAY_DISCOUNT;
+import static christmas.domain.event.EventType.GIFT_EVENT;
+import static christmas.domain.event.EventType.STAR_DAY_DISCOUNT;
+import static christmas.domain.event.EventType.WEEKDAY_DISCOUNT;
 import static christmas.domain.event.EventType.WEEKEND_DISCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.VisitDate;
 import christmas.domain.event.EventType;
-import christmas.domain.event.VisitDate;
 import christmas.domain.order.Count;
 import christmas.domain.order.MenuName;
 import christmas.domain.order.Order;

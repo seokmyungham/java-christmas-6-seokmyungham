@@ -2,6 +2,7 @@ package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.VisitDate;
 import christmas.domain.order.Count;
 import christmas.domain.order.MenuName;
 import christmas.domain.order.Order;
