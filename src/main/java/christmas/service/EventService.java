@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.domain.Menu;
 import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
 import christmas.domain.event.GiftEvent;
@@ -39,5 +40,9 @@ public class EventService {
 
     public boolean meetRequirements(Order order) {
         return order.totalPrice() >= EVENT_REQUIREMENT;
+    }
+
+    public Map<Menu, Integer> giftEvents(Order order) {
+        return new GiftEvent().getGift(order);
     }
 }
