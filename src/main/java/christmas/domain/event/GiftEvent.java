@@ -11,6 +11,7 @@ import java.util.Map;
 public class GiftEvent implements Event{
     private static final Menu GIFT = CHAMPAGNE;
     private static final int count = 1;
+    private static final int EVENT_REQUIREMENT = 120000;
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
@@ -21,13 +22,15 @@ public class GiftEvent implements Event{
     }
 
     @Override
+    public boolean meetRequirements(Order order) {
+        return order.totalPrice() >= EVENT_REQUIREMENT;
+    }
+
+    @Override
     public EventType getType() {
         return GIFT_EVENT;
     }
 
-    public boolean meetRequirements(Order order) {
-        return order.totalPrice() >= 120000;
-    }
 
     public Map<Menu, Integer> getGift(Order order) {
         Map<Menu, Integer> giftInfo = new HashMap<>();
