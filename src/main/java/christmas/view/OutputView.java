@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.domain.Menu;
 import christmas.domain.VisitDate;
+import christmas.domain.event.Badge;
 import christmas.domain.event.EventType;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderMenu;
@@ -63,5 +64,9 @@ public class OutputView {
 
     public void printPriceAfterDiscount(int finalPrice) {
         System.out.printf("%n<할인 후 예상 결제 금액>%n%,d원%n", finalPrice);
+    }
+
+    public void printEventBadge(Badge badge) {
+        System.out.printf("%n<12월 이벤트 배지>%n%s", badge.getName());
     }
 }
