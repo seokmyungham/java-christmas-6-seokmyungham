@@ -19,4 +19,8 @@ public class OutputView {
             System.out.printf(MENU_COUNT_MESSAGE, orderMenu.getMenu(), orderMenu.getCount());
         }
     }
+
+    public void printPriceBeforeDiscount(Order order) {
+        System.out.printf("%n<할인 전 총주문 금액>%n%,d원", order.totalPrice());
+    }
 }
