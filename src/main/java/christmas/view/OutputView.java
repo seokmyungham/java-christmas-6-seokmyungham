@@ -56,4 +56,8 @@ public class OutputView {
             System.out.printf("없음%n");
         }
     }
+
+    public void printTotalBenefits(int totalBenefits) {
+        System.out.printf("%n<총혜택 금액>%n%,d원%n", totalBenefits);
+    }
 }
