@@ -1,8 +1,8 @@
 package christmas.view;
 
 import christmas.domain.Menu;
+import christmas.domain.VisitDate;
 import christmas.domain.event.EventType;
-import christmas.domain.event.VisitDate;
 import christmas.domain.order.Order;
 import christmas.domain.order.OrderMenu;
 import java.util.Map;

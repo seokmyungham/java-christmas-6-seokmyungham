@@ -3,10 +3,10 @@ package christmas.service;
 import static christmas.domain.event.EventType.GIFT_EVENT;
 
 import christmas.domain.Menu;
+import christmas.domain.VisitDate;
 import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
 import christmas.domain.event.GiftEvent;
-import christmas.domain.event.VisitDate;
 import christmas.domain.event.discount.DDayDiscount;
 import christmas.domain.event.discount.StarDayDiscount;
 import christmas.domain.event.discount.WeekdayDiscount;

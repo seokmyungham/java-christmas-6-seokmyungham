@@ -2,9 +2,9 @@ package christmas.domain.event.discount;
 
 import static christmas.domain.event.EventType.STAR_DAY_DISCOUNT;
 
+import christmas.domain.VisitDate;
 import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
-import christmas.domain.event.VisitDate;
 import christmas.domain.order.Order;
 import java.util.ArrayList;
 import java.util.List;

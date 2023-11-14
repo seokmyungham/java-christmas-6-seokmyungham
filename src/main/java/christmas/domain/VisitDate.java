@@ -1,4 +1,4 @@
-package christmas.domain.event;
+package christmas.domain;
 
 import static christmas.constants.ErrorMessage.INVALID_DATE_ERROR_MESSAGE;
 
