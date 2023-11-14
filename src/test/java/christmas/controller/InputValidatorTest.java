@@ -31,7 +31,7 @@ class InputValidatorTest {
 
     @DisplayName("주문 입력이 형식과 다를 경우 예외가 발생한다.")
     @ParameterizedTest
-    @ValueSource(strings = {"양송이수프2", "제로콜라_2"})
+    @ValueSource(strings = {"양송이수프2", "제로콜라_2", "양송이수프-a"})
     void invalidInputFormatExceptionTest(String input) {
         assertThatThrownBy(() -> new InputValidator().validateInputFormat(input))
                 .isInstanceOf(IllegalArgumentException.class)
