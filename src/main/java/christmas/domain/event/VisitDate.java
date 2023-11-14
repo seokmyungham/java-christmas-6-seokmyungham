@@ -39,6 +39,10 @@ public class VisitDate {
         return eventDay.contains(visitDate);
     }
 
+    public int getVisitDate() {
+        return visitDate;
+    }
+
     private void validateVisitDate(int visitDate) {
         if (visitDate < 1 || visitDate > 31) {
             throw new IllegalArgumentException(INVALID_DATE_ERROR_MESSAGE);
