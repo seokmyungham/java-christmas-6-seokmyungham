@@ -1,5 +1,7 @@
 package christmas.service;
 
+import static christmas.domain.event.EventType.GIFT_EVENT;
+
 import christmas.domain.Menu;
 import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class EventService {
     private final List<Event> events;
@@ -45,5 +48,12 @@ public class EventService {
 
     public Map<Menu, Integer> giftEvents(Order order) {
         return new GiftEvent().getGift(order);
+    }
+
+    public int calculateFinalPrice(Order order, Map<EventType, Integer> eventBenefits) {
+        return order.totalPrice() - eventBenefits.entrySet().stream()
+                .filter(entry -> entry.getKey() != GIFT_EVENT)
+                .mapToInt(Entry::getValue)
+                .sum();
     }
 }
