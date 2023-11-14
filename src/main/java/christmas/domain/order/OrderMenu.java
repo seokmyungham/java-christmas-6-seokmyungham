@@ -2,6 +2,7 @@ package christmas.domain.order;
 
 import christmas.domain.Menu;
 import christmas.domain.MenuType;
+import java.util.Objects;
 
 public class OrderMenu {
     private final Menu menu;
@@ -22,5 +23,23 @@ public class OrderMenu {
 
     public int calculatePrice() {
         return menu.getPrice() * count.getCount();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof OrderMenu)) {
+            return false;
+        }
+        OrderMenu orderMenu = (OrderMenu) obj;
+        return Objects.equals(menu, orderMenu.menu);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(menu);
     }
 }
