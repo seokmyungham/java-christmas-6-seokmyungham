@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import static christmas.constants.ErrorMessage.INVALID_ORDER_ERROR_MESSAGE;
+import static christmas.domain.MenuType.DRINK;
 
 import christmas.domain.MenuType;
 import java.util.Collections;
@@ -16,6 +17,7 @@ public class Order {
     public Order(List<OrderMenu> orders) {
         validateDuplicateOrderMenu(orders);
         validateOrderMenuCount(orders);
+        validateOnlyDrink(orders);
         this.orders = Collections.unmodifiableList(orders);
     }
 
@@ -49,9 +51,21 @@ public class Order {
         }
     }
 
+    private void validateOnlyDrink(List<OrderMenu> orders) {
+        if (calculateTotalCount(orders) == countMenuType(orders)) {
+            throw new IllegalArgumentException(INVALID_ORDER_ERROR_MESSAGE);
+        }
+    }
+
     private int calculateTotalCount(List<OrderMenu> orders) {
         return orders.stream()
                 .mapToInt(OrderMenu::getCount)
+                .sum();
+    }
+
+    private int countMenuType(List<OrderMenu> orders) {
+        return orders.stream()
+                .mapToInt(orderMenu -> orderMenu.matchMenuTypeCount(DRINK))
                 .sum();
     }
 }
