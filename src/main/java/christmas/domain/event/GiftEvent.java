@@ -14,9 +14,12 @@ public class GiftEvent implements Event {
     private static final int count = 1;
     private static final int EVENT_REQUIREMENT = 120000;
 
+    private final Map<Menu, Integer> giftInfo = new HashMap<>();
+
     @Override
     public int apply(Order order, VisitDate visitDate) {
         if (meetRequirements(order)) {
+            giftInfo.put(GIFT, count);
             return GIFT.getPrice() * count;
         }
         return 0;
@@ -33,11 +36,7 @@ public class GiftEvent implements Event {
     }
 
 
-    public Map<Menu, Integer> getGiftInfo(Order order) {
-        Map<Menu, Integer> giftInfo = new HashMap<>();
-        if (meetRequirements(order)) {
-            giftInfo.put(GIFT, count);
-        }
+    public Map<Menu, Integer> getGiftInfo() {
         return giftInfo;
     }
 }
