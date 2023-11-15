@@ -8,6 +8,8 @@ import java.util.List;
 
 public class VisitDate {
     private static final int START_DATE = 1;
+    private static final int FIRST_DAY_OF_MONTH = 1;
+    private static final int LAST_DAY_OF_MONTH = 31;
 
     private final int visitDate;
 
@@ -44,7 +46,7 @@ public class VisitDate {
     }
 
     private void validateVisitDate(int visitDate) {
-        if (visitDate < 1 || visitDate > 31) {
+        if (visitDate < FIRST_DAY_OF_MONTH || visitDate > LAST_DAY_OF_MONTH) {
             throw new IllegalArgumentException(INVALID_DATE_ERROR_MESSAGE);
         }
     }
