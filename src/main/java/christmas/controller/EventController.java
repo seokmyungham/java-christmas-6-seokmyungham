@@ -22,7 +22,7 @@ public class EventController {
 
         processPreview(visitDate);
         processOrderInfo(order);
-        processGiftEvent(order);
+        processGiftEvent();
         processBenefits(eventBenefits, totalBenefits);
         processFinalPrice(order, eventBenefits);
         processBadgeEvent(totalBenefits);
@@ -37,8 +37,8 @@ public class EventController {
         outputView.printPriceBeforeDiscount(order);
     }
 
-    private void processGiftEvent(Order order) {
-        outputView.printGiftMenus(eventService.giftEvents(order));
+    private void processGiftEvent() {
+        outputView.printGiftMenus(eventService.giftEvents());
     }
 
     private void processFinalPrice(Order order, Map<EventType, Integer> eventBenefits) {
