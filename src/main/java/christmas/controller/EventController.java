@@ -1,67 +1,57 @@
 package christmas.controller;
 
-import christmas.domain.event.VisitDate;
-import christmas.domain.order.Count;
-import christmas.domain.order.MenuName;
+import christmas.domain.VisitDate;
+import christmas.domain.event.EventType;
 import christmas.domain.order.Order;
-import christmas.domain.order.OrderMenu;
 import christmas.service.EventService;
-import christmas.view.InputView;
-import java.util.ArrayList;
-import java.util.List;
+import christmas.view.OutputView;
+import java.util.Map;
 
 public class EventController {
-    private final InputView inputView;
-    private final InputValidator inputValidator;
     private final EventService eventService;
+    private final OutputView outputView;
 
     public EventController() {
-        this.inputView = new InputView();
-        this.inputValidator = new InputValidator();
         this.eventService = new EventService();
+        this.outputView = new OutputView();
     }
 
-    public void orderStart() {
-        getVisitDate();
-        getOrder();
+    public void processEvents(Order order, VisitDate visitDate) {
+        Map<EventType, Integer> eventBenefits = eventService.manageEvents(order, visitDate);
+        int totalBenefits = eventService.sumEventBenefits(eventBenefits);
+
+        processPreview(visitDate);
+        processOrderInfo(order);
+        processGiftEvent(order);
+        processBenefits(eventBenefits, totalBenefits);
+        processFinalPrice(order, eventBenefits);
+        processBadgeEvent(totalBenefits);
     }
 
-    private VisitDate getVisitDate() {
-        try {
-            String visitDateInput = inputView.inputVisitDate();
-            inputValidator.validateIsNumeric(visitDateInput);
-            return new VisitDate(Integer.parseInt(visitDateInput));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return getVisitDate();
-        }
+    private void processPreview(VisitDate visitDate) {
+        outputView.printPreviewMessage(visitDate);
     }
 
-    private Order getOrder() {
-        try {
-            String orderInput = inputView.inputOrderMenu();
-            inputValidator.validateInputFormat(orderInput);
-            return new Order(getOrderMenus(orderInput));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return getOrder();
-        }
+    private void processOrderInfo(Order order) {
+        outputView.printOrderMenu(order);
+        outputView.printPriceBeforeDiscount(order);
     }
 
-    private List<OrderMenu> getOrderMenus(String orderInput) {
-        List<OrderMenu> orders = new ArrayList<>();
-
-        for (String parseByComma : InputParser.parseInputByComma(orderInput)) {
-            OrderMenu orderMenu = getOrderMenu(parseByComma);
-            orders.add(orderMenu);
-        }
-        return orders;
+    private void processGiftEvent(Order order) {
+        outputView.printGiftMenus(eventService.giftEvents(order));
     }
 
-    private OrderMenu getOrderMenu(String parseByComma) {
-        String menuName = InputParser.parseInputByHYPHEN(parseByComma).get(0);
-        String count = InputParser.parseInputByHYPHEN(parseByComma).get(1);
+    private void processFinalPrice(Order order, Map<EventType, Integer> eventBenefits) {
+        int finalPrice = eventService.calculateFinalPrice(order, eventBenefits);
+        outputView.printPriceAfterDiscount(finalPrice);
+    }
 
-        return new OrderMenu(new MenuName(menuName), new Count(Integer.parseInt(count)));
+    private void processBenefits(Map<EventType, Integer> eventBenefits, int totalBenefits) {
+        outputView.printBenefitsDetails(eventBenefits, totalBenefits);
+        outputView.printTotalBenefits(totalBenefits);
+    }
+
+    private void processBadgeEvent(int totalBenefits) {
+        outputView.printEventBadge(eventService.giveBadge(totalBenefits));
     }
 }
