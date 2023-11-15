@@ -14,15 +14,15 @@ public class DDayDiscount implements Event {
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
-        if (meetRequirements(order) && visitDate.isVisitInRange(CHRISTMAS_D_DAY)) {
+        if (meetRequirements(order, visitDate)) {
             return STARTING_PRICE + visitDate.daysElapsed() * DAILY_PRICE;
         }
         return 0;
     }
 
     @Override
-    public boolean meetRequirements(Order order) {
-        return order.totalPrice() >= EVENT_REQUIREMENT;
+    public boolean meetRequirements(Order order, VisitDate visitDate) {
+        return order.totalPrice() >= EVENT_REQUIREMENT && visitDate.isVisitInRange(CHRISTMAS_D_DAY);
     }
 
     @Override

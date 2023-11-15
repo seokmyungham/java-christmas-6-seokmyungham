@@ -15,15 +15,15 @@ public class StarDayDiscount implements Event {
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
-        if (meetRequirements(order) && visitDate.isVisitInEventDay(STAR_DAY)) {
+        if (meetRequirements(order, visitDate)) {
             return discountPrice;
         }
         return 0;
     }
 
     @Override
-    public boolean meetRequirements(Order order) {
-        return order.totalPrice() >= EVENT_REQUIREMENT;
+    public boolean meetRequirements(Order order, VisitDate visitDate) {
+        return order.totalPrice() >= EVENT_REQUIREMENT && visitDate.isVisitInEventDay(STAR_DAY);
     }
 
     @Override

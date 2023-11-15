@@ -18,7 +18,7 @@ public class GiftEvent implements Event {
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
-        if (meetRequirements(order)) {
+        if (meetRequirements(order, visitDate)) {
             giftInfo.put(GIFT, count);
             return GIFT.getPrice() * count;
         }
@@ -26,7 +26,7 @@ public class GiftEvent implements Event {
     }
 
     @Override
-    public boolean meetRequirements(Order order) {
+    public boolean meetRequirements(Order order, VisitDate visitDate) {
         return order.totalPrice() >= EVENT_REQUIREMENT;
     }
 

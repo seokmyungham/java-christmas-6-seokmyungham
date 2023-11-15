@@ -14,15 +14,15 @@ public class WeekdayDiscount implements Event {
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
-        if (meetRequirements(order) && visitDate.isWeekday(YEAR, MONTH)) {
+        if (meetRequirements(order, visitDate)) {
             return order.countMenuType(MenuType.DESSERT) * discountPrice;
         }
         return 0;
     }
 
     @Override
-    public boolean meetRequirements(Order order) {
-        return order.totalPrice() >= EVENT_REQUIREMENT;
+    public boolean meetRequirements(Order order, VisitDate visitDate) {
+        return order.totalPrice() >= EVENT_REQUIREMENT && visitDate.isWeekday(YEAR, MONTH);
     }
 
     @Override
