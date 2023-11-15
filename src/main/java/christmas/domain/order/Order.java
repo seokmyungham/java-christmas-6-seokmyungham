@@ -15,9 +15,7 @@ public class Order {
     private final List<OrderMenu> orders;
 
     public Order(List<OrderMenu> orders) {
-        validateDuplicateOrderMenu(orders);
-        validateOrderMenuCount(orders);
-        validateOnlyDrink(orders);
+        validate(orders);
         this.orders = Collections.unmodifiableList(orders);
     }
 
@@ -35,6 +33,12 @@ public class Order {
 
     public List<OrderMenu> getOrders() {
         return orders;
+    }
+
+    private void validate(List<OrderMenu> orders) {
+        validateDuplicateOrderMenu(orders);
+        validateOrderMenuCount(orders);
+        validateOnlyDrink(orders);
     }
 
     private void validateDuplicateOrderMenu(List<OrderMenu> orders) {
