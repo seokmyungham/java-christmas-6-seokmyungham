@@ -11,7 +11,6 @@ public class DDayDiscount implements Event {
     private static final int CHRISTMAS_D_DAY = 25;
     private static final int STARTING_PRICE = 1000;
     private static final int DAILY_PRICE = 100;
-    private static final int EVENT_REQUIREMENT = 10000;
 
     @Override
     public int apply(Order order, VisitDate visitDate) {

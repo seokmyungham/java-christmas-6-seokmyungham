@@ -12,7 +12,6 @@ import java.util.List;
 public class StarDayDiscount implements Event {
     private static final int discountPrice = 1000;
     private static final List<Integer> STAR_DAY = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
-    private static final int EVENT_REQUIREMENT = 10000;
 
     @Override
     public int apply(Order order, VisitDate visitDate) {

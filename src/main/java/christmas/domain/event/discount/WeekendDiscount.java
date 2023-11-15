@@ -11,7 +11,6 @@ import christmas.domain.order.Order;
 public class WeekendDiscount implements Event {
     private static final int YEAR = 2023, MONTH = 12;
     private static final int discountPrice = 2023;
-    private static final int EVENT_REQUIREMENT = 10000;
 
     @Override
     public int apply(Order order, VisitDate visitDate) {
