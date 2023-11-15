@@ -8,7 +8,7 @@ public interface Event {
 
     int apply(Order order, VisitDate visitDate);
 
-    boolean meetRequirements(Order order);
+    boolean meetRequirements(Order order, VisitDate visitDate);
 
     EventType getType();
 }
