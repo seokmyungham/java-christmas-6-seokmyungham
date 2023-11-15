@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderController {
+    private static final String DELIMITER_COMMA = ",";
+    private static final String DELIMITER_HYPHEN = "-";
+
     private final InputView inputView;
     private final InputValidator inputValidator;
 
@@ -51,16 +54,16 @@ public class OrderController {
     private List<OrderMenu> getOrderMenus(String orderInput) {
         List<OrderMenu> orders = new ArrayList<>();
 
-        for (String parseByComma : InputParser.parseInputByComma(orderInput)) {
-            OrderMenu orderMenu = getOrderMenu(parseByComma);
+        for (String menuHyphenCount : InputParser.parseInputByDelimiter(orderInput, DELIMITER_COMMA)) {
+            OrderMenu orderMenu = getOrderMenu(menuHyphenCount);
             orders.add(orderMenu);
         }
         return orders;
     }
 
-    private OrderMenu getOrderMenu(String parseByComma) {
-        String menuName = InputParser.parseInputByHYPHEN(parseByComma).get(0);
-        String count = InputParser.parseInputByHYPHEN(parseByComma).get(1);
+    private OrderMenu getOrderMenu(String menuHyphenCount) {
+        String menuName = InputParser.parseInputByDelimiter(menuHyphenCount, DELIMITER_HYPHEN).get(0);
+        String count = InputParser.parseInputByDelimiter(menuHyphenCount, DELIMITER_HYPHEN).get(1);
 
         return new OrderMenu(new MenuName(menuName), new Count(Integer.parseInt(count)));
     }
