@@ -35,7 +35,10 @@ public class EventService {
         Map<EventType, Integer> eventBenefits = new HashMap<>();
 
         for (Event event : events) {
-            eventBenefits.put(event.getType(), event.apply(order, visitDate));
+            EventType type = event.getType();
+            int eventBenefit = event.apply(order, visitDate);
+
+            eventBenefits.put(type, eventBenefit);
         }
 
         return eventBenefits;
