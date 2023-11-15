@@ -26,8 +26,13 @@ class WeekdayDiscountTest {
                 new OrderMenu(new MenuName("레드와인"), new Count(1))));
     }
 
+    /*
+    WeekDay 이벤트 적용 조건
+    총 주문금액: 10,000원 이상
+    평일에 방문 (일,월,화,수,목)
+    */
 
-    @DisplayName("평일에 방문할 경우 디저트 메뉴 주문 1개당 2023원을 할인한다.")
+    @DisplayName("이벤트 적용 조건을 만족할 경우 디저트 메뉴 주문 1개당 2023원을 반환한다.")
     @Test
     void applyDiscountTest() {
         Event weekdayDiscount = new WeekdayDiscount();
@@ -37,7 +42,7 @@ class WeekdayDiscountTest {
         assertThat(discountPrice).isEqualTo(2023);
     }
 
-    @DisplayName("주말에 방문할 경우 이벤트가 적용되지 않고 0원을 반환한다.")
+    @DisplayName("이벤트 적용 조건을 만족하지 못할 경우 이벤트가 적용되지 않고 0원을 반환한다.")
     @Test
     void notApplyDiscountTest() {
         Event weekdayDiscount = new WeekdayDiscount();
@@ -47,20 +52,39 @@ class WeekdayDiscountTest {
         assertThat(discountPrice).isEqualTo(0);
     }
 
-    @DisplayName("이벤트 적용 조건을 만족하면 참을 반환한다.")
+    @DisplayName("모든 조건을 만족할 시 참을 반환한다")
     @Test
     void meetRequirementsTrueTest() {
         Event weekdayDiscount = new WeekdayDiscount();
 
-        assertThat(weekdayDiscount.meetRequirements(totalOrder)).isTrue();
+        assertThat(weekdayDiscount.meetRequirements(totalOrder, new VisitDate(6))).isTrue();
     }
 
-    @DisplayName("이벤트 적용 조건을 만족하지 못하면 거짓을 반환한다.")
+    @DisplayName("총 주문금액이 10,000원 이상이지만, 주말에 방문했을 시 거짓을 반환한다")
     @Test
-    void meetRequirementsFalseTest() {
+    void meetRequirementsFalseCase1Test() {
+        Event weekdayDiscount = new WeekdayDiscount();
+
+        assertThat(weekdayDiscount.meetRequirements(totalOrder, new VisitDate(8))).isFalse();
+    }
+
+    @DisplayName("평일에 방문했지만, 총 주문금액이 10,000원 미만일 시 거짓을 반환한다")
+    @Test
+    void meetRequirementsFalseCase2Test() {
         Order orders = new Order(List.of(new OrderMenu(new MenuName("양송이수프"), new Count(1))));
 
         Event weekdayDiscount = new WeekdayDiscount();
-        assertThat(weekdayDiscount.meetRequirements(orders)).isFalse();
+
+        assertThat(weekdayDiscount.meetRequirements(orders, new VisitDate(6))).isFalse();
+    }
+
+    @DisplayName("모든 조건을 만족하지 못했을 경우 거짓을 반환한다.")
+    @Test
+    void meetRequirementsFalseCase3Test() {
+        Order orders = new Order(List.of(new OrderMenu(new MenuName("양송이수프"), new Count(1))));
+
+        Event weekdayDiscount = new WeekdayDiscount();
+
+        assertThat(weekdayDiscount.meetRequirements(orders, new VisitDate(8))).isFalse();
     }
 }
