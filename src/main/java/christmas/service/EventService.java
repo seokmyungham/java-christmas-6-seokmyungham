@@ -41,13 +41,13 @@ public class EventService {
         return eventBenefits;
     }
 
-    public int sumEventBenefits(Map<EventType, Integer> eventBenefits) {
+    public int calculateEventBenefits(Map<EventType, Integer> eventBenefits) {
         return eventBenefits.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    public Map<Menu, Integer> giftEvents() {
+    public Map<Menu, Integer> manageGiftEvents() {
         Map<Menu, Integer> giftInfo = new HashMap<>();
         for (Event event : events) {
             if (event instanceof GiftEvent) {

@@ -18,7 +18,7 @@ public class EventController {
 
     public void processEvents(Order order, VisitDate visitDate) {
         Map<EventType, Integer> eventBenefits = eventService.manageEvents(order, visitDate);
-        int totalBenefits = eventService.sumEventBenefits(eventBenefits);
+        int totalBenefits = eventService.calculateEventBenefits(eventBenefits);
 
         processPreview(visitDate);
         processOrderInfo(order);
@@ -38,7 +38,7 @@ public class EventController {
     }
 
     private void processGiftEvent() {
-        outputView.printGiftMenus(eventService.giftEvents());
+        outputView.printGiftMenus(eventService.manageGiftEvents());
     }
 
     private void processFinalPrice(Order order, Map<EventType, Integer> eventBenefits) {
