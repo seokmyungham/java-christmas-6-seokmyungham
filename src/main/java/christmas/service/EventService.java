@@ -47,8 +47,14 @@ public class EventService {
                 .sum();
     }
 
-    public Map<Menu, Integer> giftEvents(Order order) {
-        return new GiftEvent().getGiftInfo(order);
+    public Map<Menu, Integer> giftEvents() {
+        Map<Menu, Integer> giftInfo = new HashMap<>();
+        for (Event event : events) {
+            if (event instanceof GiftEvent) {
+                giftInfo = ((GiftEvent) event).getGiftInfo();
+            }
+        }
+        return giftInfo;
     }
 
     public int calculateFinalPrice(Order order, Map<EventType, Integer> eventBenefits) {
